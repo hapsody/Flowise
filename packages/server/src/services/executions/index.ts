@@ -5,7 +5,7 @@ import { Execution } from '../../database/entities/Execution'
 import { InternalFlowiseError } from '../../errors/internalFlowiseError'
 import { getErrorMessage } from '../../errors/utils'
 import { ExecutionState, IAgentflowExecutedData } from '../../Interface'
-import { _removeCredentialId } from '../../utils/buildAgentflow'
+import { _removeCredentialId } from '../../utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 
 export interface ExecutionFilters {
@@ -65,7 +65,7 @@ const getPublicExecutionById = async (executionId: string): Promise<Execution | 
 const getAllExecutions = async (filters: ExecutionFilters = {}): Promise<{ data: Execution[]; total: number }> => {
     try {
         const appServer = getRunningExpressApp()
-        const { id, agentflowId, sessionId, state, startDate, endDate, page = 1, limit = 10, workspaceId } = filters
+        const { id, agentflowId, sessionId, state, startDate, endDate, page = 1, limit = 12, workspaceId } = filters
 
         // Handle UUID fields properly using raw parameters to avoid type conversion issues
         // This uses the query builder instead of direct objects for compatibility with UUID fields
